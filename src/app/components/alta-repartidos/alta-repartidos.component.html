@@ -1,1 +1,123 @@
-<p>alta-repartidos works!</p>
+<div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <h2>Alta de Repartidor</h2>
+      </div>
+  
+         <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+          <app-tabla-paises (eventoPaisSeleccionado)="mostrarPais($event)" [listadoPaises]='this.listaPaises' ></app-tabla-paises>
+        </div>
+        <div class="col-md-7 col-lg-8">
+            <form [formGroup]='formGroup' (ngSubmit)="aceptar()">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre" formControlName="nombre">
+                    <small class="invalid" *ngIf="formGroup.get('nombre').errors?.required && formGroup.get('nombre').touched">El nombre es requerido</small>
+                    <small class="invalid" *ngIf="formGroup.get('nombre').errors?.contieneEspacios && formGroup.get('nombre').touched">El nombre no puede tener espacios</small>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="apellido" class="form-label">DNI</label>
+                    <input type="number" class="form-control" id="DNI" placeholder="Ingrese DNI" formControlName="dni">
+                    <small class="invalid" *ngIf="formGroup.get('dni').errors?.required  && formGroup.get('dni').touched">El DNI es requerido</small>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="edad" placeholder="Ingrese edad" formControlName="edad">
+                    <small class="invalid" *ngIf="formGroup.get('edad').errors?.required  && formGroup.get('edad').touched">La edad es requerida</small>
+                    <small class="invalid" *ngIf="(formGroup.get('edad').errors?.min || formGroup.get('edad').errors?.max )&& formGroup.get('edad').touched">La edad debe ser mayo a 18 y menor a 99</small>
+                  </div>
+                  <div class="col-md-5">
+                    <label for="country" class="form-label">Pais de nacimiento</label>
+                    <input id="country" value="{{nombrePaisSeleccionado}}" disabled formControlName="country">
+                    <small class="invalid" *ngIf="formGroup.get('country').errors?.required && formGroup.get('country').touched">El nombre es requerido</small>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                      <label for="edad" class="form-label">Capacidad del camion</label>
+                      <input type="number" class="form-control" id="capacidad" placeholder="Ingrese capacidad" formControlName="capacidad">
+                      <small class="invalid" *ngIf="formGroup.get('capacidad').errors?.required  && formGroup.get('capacidad').touched">La capacidad es requerida</small>
+                      <small class="invalid" *ngIf="formGroup.get('capacidad').errors?.pattern && formGroup.get('capacidad').touched">La capacidad debe estar expresada en numeros</small>
+                  </div>
+                <div class="row">
+                  <div class="col-md-12 mb-5">
+                      <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="unidadPropia" formControlName="unidadPropia">
+                          <label for="recordar" class="form-check-label" for="unidadPropia">
+                              Tiene Unidad Propia
+                          </label>
+                      </div>
+                  </div>
+                  <small class="invalid" *ngIf="formGroup.get('unidadPropia').errors?.required  && formGroup.get('unidadPropia').touched">Debe aclarar si tiene unidad propia</small>
+                </div>
+                <div class="row">
+                  <button type="button" class="btn btn-primary w-50" (click)="traerPaises('Europe')">Mostrar paises europa</button>
+                  <button type="button" class="btn btn-primary w-50" (click)="traerPaises('Africa')">Mostrar paises africanos</button>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="formGroup.invalid">
+                      Aceptar
+                    </button>
+                  </div>
+                </div>
+          </form>
+        </div>
+</div>
+
+<!--<div class="container">
+    <form [formGroup]='formGroup' (ngSubmit)="aceptar()">
+      <div class="row">
+        <div class="col-md-12 mb-5">
+          <h2>Angular Forms</h2>
+        </div>
+      </div>
+      <div class="row formulario">
+        <div class="col-md-6 mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre" formControlName="nombre">
+          <small class="invalid" *ngIf="formGroup.get('nombre').errors?.required && formGroup.get('nombre').touched">El nombre es requerido</small>
+          <small class="invalid" *ngIf="formGroup.get('nombre').errors?.contieneEspacios && formGroup.get('nombre').touched">El nombre no puede tener espacios</small>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="apellido" class="form-label">DNI</label>
+          <input type="number" class="form-control" id="DNI" placeholder="Ingrese DNI" formControlName="dni">
+          <small class="invalid" *ngIf="formGroup.get('dni').errors?.required  && formGroup.get('dni').touched">El DNI es requerido</small>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="edad" class="form-label">Edad</label>
+          <input type="number" class="form-control" id="edad" placeholder="Ingrese edad" formControlName="edad">
+          <small class="invalid" *ngIf="formGroup.get('edad').errors?.required  && formGroup.get('edad').touched">La edad es requerida</small>
+          <small class="invalid" *ngIf="(formGroup.get('edad').errors?.min || formGroup.get('edad').errors?.max )&& formGroup.get('edad').touched">La edad debe ser mayo a 18 y menor a 99</small>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="edad" class="form-label">Capacidad del camion</label>
+            <input type="number" class="form-control" id="capacidad" placeholder="Ingrese capacidad" formControlName="capacidad">
+            <small class="invalid" *ngIf="formGroup.get('capacidad').errors?.required  && formGroup.get('capacidad').touched">La capacidad es requerida</small>
+            <small class="invalid" *ngIf="formGroup.get('capacidad').errors?.pattern && formGroup.get('capacidad').touched">La capacidad debe estar expresada en numeros</small>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-5">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="unidadPropia" formControlName="unidadPropia">
+                <label for="recordar" class="form-check-label" for="unidadPropia">
+                    Tiene Unidad Propia
+                </label>
+            </div>
+        </div>
+        <small class="invalid" *ngIf="formGroup.get('unidadPropia').errors?.required  && formGroup.get('unidadPropia').touched">Debe aclarar si tiene unidad propia</small>
+      </div>
+      <div class="row">
+        <button type="button" class="btn btn-primary btn-block" (click)="traerPaises('Europe')">Mostrar paises europa</button>
+        <button type="button" class="btn btn-primary btn-block" (click)="traerPaises('Africa')">Mostrar paises africanos</button>
+      </div>
+      <div class="row">
+        <div class="col-md-12 d-grid gap-2">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="formGroup.invalid">
+            Aceptar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>-->

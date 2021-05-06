@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PaisesService } from 'src/app/services/paises.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { PaisesService } from 'src/app/services/paises.service';
 })
 export class TablaPaisesComponent implements OnInit {
 
-  public listadoPaises:Array<any> = new Array<any>();
+  @Input() public listadoPaises:Array<any> = new Array<any>();
   public paisSeleccionado;
   @Output() eventoPaisSeleccionado:EventEmitter<any> = new EventEmitter<any>();
   constructor(
@@ -18,15 +18,15 @@ export class TablaPaisesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.traerPaises();
+    //this.traerPaises();
     console.log(this.listadoPaises);
   }
 
-  traerPaises(){
+  /*traerPaises(){
     this.servicePais.getTodosLosPaises().subscribe(resultado=>{
       this.listadoPaises.push(resultado);     
     });
-  }
+  }*/
   emitirPaisSeleccionado(pais){
     console.log(pais);
     this.paisSeleccionado = pais;

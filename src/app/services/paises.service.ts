@@ -13,4 +13,8 @@ export class PaisesService {
   getTodosLosPaises(){
     return this.http.get('https://restcountries.eu/rest/v2/all');
   }
+
+  getPaisesPorRegion(region:string){
+    return this.http.get('https://restcountries.eu/rest/v2/region/' + region);
+  }
 }
