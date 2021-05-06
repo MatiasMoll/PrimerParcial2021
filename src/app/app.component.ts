@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Pelicula } from './clases/pelicula';
+import { CommonService } from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,11 @@ import { Pelicula } from './clases/pelicula';
 export class AppComponent {
 
   title = 'SimulacroExamen';
+  public isLogged;
+  constructor(
+    public servicio:CommonService
+  ){
+    this.isLogged = this.servicio.isLogged;
+  }
 
 }

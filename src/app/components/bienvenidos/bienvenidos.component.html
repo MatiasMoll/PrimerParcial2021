@@ -1,2 +1,89 @@
-<p>bienvenidos works!</p>
-<button class="btn btn-primary"routerLink='/busqueda'>Ir a busqueda</button>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.81.1">
+    <title>Pricing example · Bootstrap v5.0</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/pricing/">
+
+    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 2.5rem;
+        }
+      }
+    </style>
+
+    
+   </head>
+  <body>
+
+
+<div class="container py-2">
+  <header>
+    <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal">{{nombre}}</h1>
+      <img width="250" alt="250" src={{imagen}}>
+    </div>
+  </header>
+
+  <main>
+    <div class="row row-cols-1 row-cols-md-2 mb-2 text-center">
+      <div class="col">
+        <div class="card mb-4 rounded-2 shadow-sm">
+          <div class="card-header py-2">
+            <h4 class="my-0 fw-normal">Blog</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-2 mb-4">
+              <li>Link al blog personal de {{nombre}}</li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary" (click)="abrirBlog()">Ir al blog</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 rounded-2 shadow-sm">
+          <div class="card-header py-2">
+            <h4 class="my-0 fw-normal">Github</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mt-2 mb-4">
+              <li>Link al github</li>
+
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-primary" (click)="abrirGithub()">Ir al github</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-1 mb-1 text-center">
+        <div class="col">
+          <div class="card mb-4 rounded-1 shadow-sm">
+            <div class="card-header py-1">
+              <h4 class="my-0 fw-normal">Login</h4>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled mt-1 mb-4">
+                <li>Link al Login!</li>
+              </ul>
+              <button type="button" class="w-100 btn btn-lg btn-outline-primary" (click)="irLogin()">Ir al login</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+ 

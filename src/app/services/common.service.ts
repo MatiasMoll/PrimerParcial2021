@@ -13,6 +13,7 @@ export class CommonService {
     this.listadoPeliculasCreadas =   new Array<Pelicula>();
   }
 
+  public isLogged:boolean = false;
   public listadoActoresCreados:Array<Actor>;
   public listadoPeliculasCreadas:Array<Pelicula>;
 
