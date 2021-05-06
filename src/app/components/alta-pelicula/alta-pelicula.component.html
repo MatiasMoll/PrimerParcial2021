@@ -1,0 +1,42 @@
+<div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <h2>Alta de Peliculas</h2>
+      </div>
+  
+      <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+          <app-tabla-actores (eventoActorSeleccionado)='mostrarActor($event)'></app-tabla-actores>
+        </div>
+        <div class="col-md-7 col-lg-8">
+          <form class="needs-validation" [formGroup]='formPelicula' (ngSubmit)="crearPelicula()">
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label for="firstName" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="firstName" placeholder="" required formControlName="firstName">
+                <small class="invalid" *ngIf="formPelicula.get('firstName').errors?.required && formPelicula.get('firstName').touched">El nombre es requerido</small>
+
+              </div>
+                 
+              <div class="col-md-5">
+                <label for="actor" class="form-label">Protagonista</label>
+                <input id="actor" value="{{actorSeleccionado}}" disabled formControlName="actor">
+                <small class="invalid" *ngIf="formPelicula.get('actor').errors?.required && formPelicula.get('actor').touched">El nombre es requerido</small>
+              </div>
+              
+              <div class="col-md-5">
+                <label for="fechaEstreno" class="form-label">Fecha de estreno</label>
+                <input id="fechaEstreno" type="date" formControlName="fechaEstreno">
+                <small class="invalid" *ngIf="formPelicula.get('fechaEstreno').errors?.required && formPelicula.get('fechaEstreno').touched">El nombre es requerido</small>
+              </div>
+
+            </div>
+
+            <hr class="my-4">
+  
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
+          </form>
+        </div>
+      </div>
+    </main>
+</div>

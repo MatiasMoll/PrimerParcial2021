@@ -1,0 +1,17 @@
+<h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-primary">Paises</span>
+    
+ </h4>
+
+  <ul class="list-group mb-3" >
+    <li class="list-group-item d-flex justify-content-between lh-sm" 
+        *ngFor="let pais of listadoPaises[0]; let i = index" 
+        (click)="emitirPaisSeleccionado(pais)"
+        [style.background-color]="pais===paisSeleccionado ? 'lightblue' : ''"
+    >
+      <div>
+        <h6 class="my-0">{{pais.name}}</h6>
+      </div>
+      <span class="text-muted"><img src="{{pais.flag}}" width="50" height="30"></span>
+    </li>
+  </ul>

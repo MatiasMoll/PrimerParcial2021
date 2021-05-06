@@ -1,0 +1,44 @@
+import { Component, OnInit } from '@angular/core';
+import { Actor } from 'src/app/clases/actor';
+import { Pelicula } from 'src/app/clases/pelicula';
+import { CommonService } from 'src/app/services/common.service';
+
+@Component({
+  selector: 'app-busqueda-pelicula',
+  templateUrl: './busqueda-pelicula.component.html',
+  styleUrls: ['./busqueda-pelicula.component.css']
+})
+export class BusquedaPeliculaComponent implements OnInit {
+
+  public listadoPeliculas:Pelicula[];
+  public listadoActores:Array<Actor> = new Array<Actor>();
+  public peliculaSeleccionada:Pelicula;
+
+  constructor(
+    private commonService:CommonService
+  ) {
+    this.listadoPeliculas = [
+      {id:'0',nombre:'Test',tipo:'Terror',fechaEstreno:new Date(2010,10,10),cantidadDePublico:'666',fotoDeLaPelicula:'https://www.google.com/search?sxsrf=ALeKk02GJizu2ASspzFcIU8fH_RnxdEzMg:1618525973082&q=La+caba%C3%B1a+siniestra&stick=H4sIAAAAAAAAAK2UPYzjRBiG4xwbct5DbJJDOkVCCkFCJwsp_o9DkxMIIaQ9ge62t-zxT2KPx7FnSBw3CDo6BIIabYEo-G0oKNAKqlukFUKAqE5w3VUrKq47spuZcSxa3L2eb9753m_sp703fGoUjhQliMhCSfBCffpNH87BW9AZED_P0_xU2BbM1CRa5LnGNMwMDYJJyXSQYOIZ-prrYgKj8ZjvZwdwPzksE6R7XIOIxHLoMh1PVBKOFcj3x0khFzqu_HTDhSr39wJSjldwyTTQLexid8LrPdMLw6zqV1uZuWdzP4AmATYmOl_HRB6vopDp0I1zjEjGdRDP1FhTeX2euVGpKTyPDUC5nGzmIY6SkWwXwNB4cy7JUJSbqApfKlkGLW5mlxMNxHyYsTxeFkWkV81gAtE6qoajZyXw7CpckYVIHvP6VWiEQVmFNVeypYQJ15qSEwVku8OKxhq_jJkxLmwQm1yXFootlV9eoCcaMk3ef5RDsIp1Xg8MXbWTWXX57qJAoQf4PArXmmG7yh_nRM9D_rG5q9g2bVwN3woSyyDxqbB_MVxFybQyKOioS6TMQpkKEMlLtcrhmRnMlYL7rkvPck2Z97n5bNYLmFV9QgAVRWHnyBZYRqsHwklz_-Dho_u9_rfNDz6_97vwVVM8OExT7MP1HR86xPeO0u5LYutVROZk3e2L1_rtCwMNLdDNRl8UuVKvi_SKzRgkC9M7OP3nI6F7XxD37_rkKL2devNg3T0Tuj8J4tXbfuL6OX4j2JiLr6QQ-oDMU9R9UXym3xkB_mIUzGGCNyf1xP--Hr4jqLPvfvn4rOV2Gpvn5-O7t_pq5wX8_HsPf_tzKnXFJ1_HhylwYOfXTx-_PXx8PpV6YvvIKVKUJuvO2Retwb0Pz6fD565udn_y9x_n00uf93tfTm9cGQg3G8pG3er99eyJ1LhzmVRdFuhEaL77_Wc_tJ5oCweNa8dXHrTE1tElYrqv_U_J-m0GryEfsFTHl1Snl1SHF5OUXUxSdDErSi4mKbikOrfYXootbrWlllSHllRnllT9hRfIYpISixVTYLFVyiupjismKa1YMYUVi0BZJe2gSqqTiofdgor5UE6x7BRTvIctpfgotpDicbaMYsUUUSwdJRSTFFA7k7ngE-uK4olJSidWTOEk1dnEnCma2F5KJhafgolH2HKJrVIssQiUStIulKQdJkk7SGLnUSIxRwok1hzlEW9uiyNpl0Zy4-Ubu39C4ntzxw59lPv4eO_6oTMAjuv8-I0zwHM09zHJna_3mv8CEtwdhfkHAAA&sa=X&ved=2ahUKEwi4pr2Np4HwAhV5H7kGHSayDI4Q9OUBMCt6BAgFEAs'},
+      {id:'1',nombre:'Test Comedia',tipo:'Comedia',fechaEstreno:new Date(2011,11,11),cantidadDePublico:'555',fotoDeLaPelicula:'https://www.google.com/search?sxsrf=ALeKk004riYTzlOYtg3u8v-H0dL43XSrkg:1618526006136&q=Bad+Boys+para+siempre&stick=H4sIAAAAAAAAAK3UT4gbVRwH8EzqbrOzFpOJhRIU4-Kh_BQyfzIzSRW2bhEVWpS69yF58y-befPfyZsBwQrei6A3L0VEUERv4kFKb67QQwWPC3rzYo8tVNC0O2_yHl7N7fv-_N6830w-na29cyNvpChzMh7jZBWr3XedYIHeD2ZDFGHHXsyOhdMVCKerTCtSmukOmt0jTZ3kltqsV9AEI7PJbqlomlZ5NHsWmfjLTGmy668su5o39SuZkFTTjoXdER7JiqIjlWh01tfQPNS9fHN6hdTcmDSny8TPTcWgu9WJgiy7WY3yJKlSdCyIj2fRkVyo8-YgRTPsZbPUUPE8UfUmV55hqIlRby3izBwHdRiXJiJ6HXCV6yirQ1JVtmXWwSOJrlQ0eOY4pdXm_pQcKXVYxavAo6WtklRBUYdQIyS265B5frEs6eNovl6am0unpDSalmixLpPEqpfGE-LqqzrYQTg5WtYhDzQ3Lpr34ofGtCK46XxlmSWZ0t4ZYxkbU9pINDWzvA56rOSVS4OqTpG1mUlKnzZNNkuX0OpJnGaxgkt6BdmrNFem5bErY7n5QIw4nVhjt1nq6oVHG25USzcrm5cWloU1KYw_hDvt3e6fD0_6gx_an3zz82_C922xezWKMicorzvBLHfsw0h6Tdx-I8wXeSk9J54b7Jw-sq5rF1uDXXET1WfF0_JLY4lwbNjd4wefCtKJIO6-5-SH0bXIXrildFeQfhHEnWsOnjtp9o4rXRLFK1EQOChfRKH0inh-0BuhZmDkLgKcrY_qi_8d3rshqP6P9z67uz3vtda_e18eXh6ovZc__uLrZ369vw-SePbt7GqEZkHv5lv_vPDBo_VYX-wczkgURrjsqX-_2sKv39_fe3FnvfvDk5f-2n9S52b_2_0LZ4bCxZayTpf7vz9_G1rXO4-vqhYkvC20P_rpqzvbT3WEbuvpW2c-3xbPXjnlQXrzf7raoEPl2du0GHh7gKcHeHmAhwd4d4BnB3h1gEcHWHOAJwd4cYAHB1hvgOcGGG2AxQZ4a4CnBhhpgIEGGGeAYQYYZYBBBhhjgCEGGGGAAQYYX4DhBVhdgMcFGFuAoQUYWYCHBXhXgGEFGFWAQQUYU4AhBRhRgAcFWE-A4QR4TYDFBBhLgKdEbh1cYL_hJ38Gy3PC1MlubZ0_mNnDg6jMhvEsnQ2zhYPj1Pluq_0vf_S4dHEHAAA&sa=X&ved=2ahUKEwj35p6dp4HwAhXoILkGHYaZDusQ9OUBMCd6BAgFEAU'},
+      {id:'2',nombre:'Test Amor',tipo:'Amor',fechaEstreno:new Date(2012,12,12),cantidadDePublico:'444',fotoDeLaPelicula:'https://www.google.com/search?sxsrf=ALeKk01MzhrK_UlWwuq61VzJ1AIJwhGlcw:1618525929398&q=Nace+una+estrella&stick=H4sIAAAAAAAAAK3UTYzbRBQH8CTtpllvF228IKEgoSWn8oQUf2T8wYEFVQghdQEtKwQnK_4axx7bcewmtk8VF-499Iq0JyQ4VByrqkXcKBIHvo6oQkKIE1fEpWSLx5kRV3L7-3neG89Ev8HOWJjEEwmbBZJsZf89j8ydm2R2NIvT5aPu_gRPZDnQpCBx6ozmULIj3w_XNPsa8mOkFm3dMCtJKtVHXaY3LdrrqnRzO6IZJ0tixQHe1gPbWLukba5jbEW6sa27y1UmFU3zCimm3u7MdzUXE7yi2VFLA_uJ2S6uJUe1cUmz68srFOK8aba2Q7QmTaidqVRVdMzUMuu6PRDVsROE6R5KBZWy0_as4szHRU2L8ipAcbsBXcM2ClBTXLg2CoMmJFO_KrV26zLWTNVU23MKEs2sS6aTaymbq6A5WyzzhRzTDZNM8-3NmL2LIEvLcF0oTSksjbA26OWUGZLpXjHS19vDs4sSL6tSosXpIq6t7ckukFRmFp2gGLJjuc2riraYZnoTIqnITBrUJLZ8-sGortTcaYIeuZEfthdJzNhFddEuy2O0ubXdi-AU9hQ3BUNfO3pC-xWSpayatwxVWrV_slC2F2Yt1b927_f2Dv7465fD0Ze9219883P3855wcCNNc49Upx6ZFZ57loqvCf03k2JeVOKLwjOjp72nRpSQ-lpndFVgsvKs8O-ASIucwDUWB58-vtMVsbD3vlecpSepO_cr8UPxA2H3xIttb5m_64uvCsL1lBDPKeZpIr4iPDcaTpz2wcSfkzjfDDoU_vt4vH86eHrAqzL5qtsbJ4p17_s73_U_GnY2vwcvnL4-ehlE4crb-Y3UmZHhyU9Pjs-f_HkMh8LgbFamSRpXw_vfptevkN-Oxy_tbhbduv3j78cXy2_dvffDw-cvHXWudeRNfNy3_n4Inc2Ujx989nX_8qB70Ll6fumTvnD5jY0N4lv_0yeNBtScMXOwwMsDPDzAuwM8O8CoAzw6wJsDPDnAiwM8OMB4Azw3wGsDPDbAWwMMNcBIAww0wDsDDDPAKwMMMsAbAwwxwAgDPDDA-wI8L8DrAgwuwNoCDC3AyAIMLMC7AgwrwKsCLCrAmAIMKcCIAgwowHgCPCfAaAJbTICxBBhKYCsJ8JBInfOd4Tszxzu6mcyOvLxYeoTM7u70_gEBgKaLUQcAAA&sa=X&ved=2ahUKEwir_dL4poHwAhW3D7kGHTulAtQQ9OUBMCp6BAgFEAs'}    
+    ];
+    this.commonService.actor$.subscribe(actor => {
+      this.listadoActores.push(actor[0])
+      this.commonService.listadoActoresCreados = this.listadoActores;
+    });
+    
+   }
+
+  ngOnInit(): void {
+  }
+
+  cargarPeliculaSeleccionada(pelicula:Pelicula){
+    this.peliculaSeleccionada = pelicula;
+    console.log(this.peliculaSeleccionada);
+  }
+
+  cargarNuevaPelicula(pelicula:Pelicula){
+    console.log(pelicula);
+    this.listadoPeliculas.push(pelicula);
+  }
+}
