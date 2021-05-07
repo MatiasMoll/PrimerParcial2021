@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 		//this.authService.loginWithEmailAndPassword(this.usrName,this.usrPass);
 		if(this.usrName == "test@gmail.com" && this.usrPass == "isanoe20"){
 			this.servicio.isLogged = true;
-			this.router.navigateByUrl('alta-repartidor');
+			this.router.navigateByUrl('home');
 		}
   	}        
 	clearInputs(){

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CommonService } from 'src/app/services/common.service';
 import { PaisesService } from 'src/app/services/paises.service';
 
 @Component({
@@ -12,28 +14,35 @@ export class AltaRepartidosComponent implements OnInit {
   public formGroup:FormGroup;
   public listaPaises:Array<Object> = new Array<Object>();
   public isListaVacia = true;
-  public nombrePaisSeleccionado;
+  public paisSeleccionado;
+
   constructor(
     private fb:FormBuilder,
-    private servicioPaises:PaisesService
+    private servicioPaises:PaisesService,
+    public servicioRepartidor:CommonService,
+    private router:Router
   ) { 
-
+   
   }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       'nombre':['',[Validators.required,this.spaceValidator]],
-      'dni':['',[Validators.required,Validators.pattern('/^[0-9]\d{6,10}$/'),Validators.min(0)]],
+      'dni':['',[Validators.required,Validators.min(0)]],
       'edad':['',[Validators.required,Validators.min(18),Validators.max(99)]],
-      'capacidad':['',[Validators.required,Validators.pattern('/^[0-9]\d{6,10}$/'),Validators.min(0)]],
-      'unidadPropia':[''],
-      'paisOrigen':['',[Validators.required]],
-      'country':['',[Validators.required]]
+      'capacidad':['',[Validators.required,Validators.min(0)]] 
     });
   }
 
   public aceptar(){
-    console.log(this.formGroup.getRawValue());
+    let repartidor = {
+      'name':this.formGroup.get('nombre').value,
+      'dni':this.formGroup.get('dni').value,
+      'pais':this.paisSeleccionado
+    };
+    console.log(repartidor);
+    this.router.navigateByUrl('/home');
+    this.servicioRepartidor.listadoRepartidoresCreados.push(repartidor);
   }
 
   private spaceValidator(control: AbstractControl): null | object {
@@ -62,6 +71,6 @@ export class AltaRepartidosComponent implements OnInit {
   }
 
   mostrarPais(event){
-    this.nombrePaisSeleccionado = event.name;
+    this.paisSeleccionado = event;
   }
 }

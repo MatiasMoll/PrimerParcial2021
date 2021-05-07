@@ -39,7 +39,7 @@ export class BienvenidosComponent implements OnInit {
     window.open(this.blog, "_blank");
   }
   abrirGithub(){
-    window.open(this.git,'_blank');
+    window.open('https://github.com/MatiasMoll/','_blank');
   }
   irLogin(){
     this.router.navigateByUrl('ingreso');

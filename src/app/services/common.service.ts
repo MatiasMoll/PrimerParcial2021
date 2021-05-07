@@ -9,23 +9,23 @@ import { Pelicula } from '../clases/pelicula';
 export class CommonService {
 
   constructor() { 
-    this.listadoActoresCreados = new Array<Actor>();
+    this.listadoRepartidoresCreados = new Array<Actor>();
     this.listadoPeliculasCreadas =   new Array<Pelicula>();
   }
 
   public isLogged:boolean = false;
-  public listadoActoresCreados:Array<Actor>;
+  public listadoRepartidoresCreados:Array<any>;
   public listadoPeliculasCreadas:Array<Pelicula>;
 
   private pelicula = new BehaviorSubject<any>('');
   pelicula$ = this.pelicula.asObservable();
-  private actor = new BehaviorSubject<any>('');
-  actor$ = this.actor.asObservable();
+  private repartidor = new BehaviorSubject<any>('');
+  repartidor$ = this.repartidor.asObservable();
 
-  creatActor(actor:Actor){  
-    this.actor.next(actor);
-    this.listadoActoresCreados.push(actor);
-    console.log(this.listadoActoresCreados)
+  crearRepartidor(repartidor:any){  
+    this.repartidor.next(repartidor);
+    this.listadoRepartidoresCreados.push(repartidor);
+    console.log(this.listadoRepartidoresCreados)
   }
 
 

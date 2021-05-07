@@ -6,29 +6,20 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { BusquedaPeliculaComponent } from './components/busqueda-pelicula/busqueda-pelicula.component';
 import { BienvenidosComponent } from './components/bienvenidos/bienvenidos.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { TablaPeliculaComponent } from './components/tabla-pelicula/tabla-pelicula.component';
-import { DetallePeliculaComponent } from './components/detalle-pelicula/detalle-pelicula.component';
-import { AltaPeliculaComponent } from './components/alta-pelicula/alta-pelicula.component';
+
 import { TablaPaisesComponent } from './components/tabla-paises/tabla-paises.component';
-import { AltaActoresComponent } from './components/alta-actores/alta-actores.component';
-import { TablaActoresComponent } from './components/tabla-actores/tabla-actores.component';
-import { AltaRepartidosComponent } from './components/alta-repartidos/alta-repartidos.component';
+
+import { AltaRepartidosComponent } from './home/repartidores/alta-repartidos/alta-repartidos.component';
+import { CommonService } from './services/common.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BusquedaPeliculaComponent,
     BienvenidosComponent,
     NavBarComponent,
-    TablaPeliculaComponent,
-    DetallePeliculaComponent,
-    AltaPeliculaComponent,
     TablaPaisesComponent,
-    AltaActoresComponent,
-    TablaActoresComponent,
     AltaRepartidosComponent
   ],
   imports: [
@@ -39,7 +30,9 @@ import { AltaRepartidosComponent } from './components/alta-repartidos/alta-repar
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    CommonService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,61 @@
+<div class="container">
+    <main>
+      <div class="py-5 text-center">
+        <h2>Alta de Repartidor</h2>
+      </div>
+  
+         <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+          <app-tabla-paises (eventoPaisSeleccionado)="mostrarPais($event)" [listadoPaises]='this.listaPaises' ></app-tabla-paises>
+        </div>
+        <div class="col-md-7 col-lg-8">
+            <form [formGroup]='formGroup' (ngSubmit)="aceptar()">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" placeholder="Ingrese nombre" formControlName="nombre">
+                    <small class="invalid" *ngIf="formGroup.get('nombre').errors?.required && formGroup.get('nombre').touched">El nombre es requerido</small>
+                    <small class="invalid" *ngIf="formGroup.get('nombre').errors?.contieneEspacios && formGroup.get('nombre').touched">El nombre no puede tener espacios</small>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="number" class="form-control" id="dni" placeholder="Ingrese DNI" formControlName="dni">
+                    <small class="invalid" *ngIf="formGroup.get('dni').errors?.required  && formGroup.get('dni').touched">El DNI es requerido</small>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="edad" placeholder="Ingrese edad" formControlName="edad">
+                    <small class="invalid" *ngIf="formGroup.get('edad').errors?.required  && formGroup.get('edad').touched">La edad es requerida</small>
+                    <small class="invalid" *ngIf="(formGroup.get('edad').errors?.min || formGroup.get('edad').errors?.max )&& formGroup.get('edad').touched">La edad debe ser mayo a 18 y menor a 99</small>
+                  </div>
+                  <div class="col-md-5">
+                    <label for="paisOrigen" class="form-label">Pais de nacimiento</label>
+                    <input id="paisOrigen" value="{{paisSeleccionado?.name}}" disabled>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                      <label for="capacidad" class="form-label">Capacidad del camion</label>
+                      <input type="number" class="form-control" id="capacidad" placeholder="Ingrese capacidad" formControlName="capacidad">
+                      <small class="invalid" *ngIf="formGroup.get('capacidad').errors?.required  && formGroup.get('capacidad').touched">La capacidad es requerida</small>                  </div>
+                <div class="row">
+                  <div class="col-md-12 mb-5">
+                      <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="unidadPropia">
+                          <label for="recordar" class="form-check-label" for="unidadPropia">
+                              Tiene Unidad Propia
+                          </label>
+                      </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <button type="button" class="btn btn-primary w-50" (click)="traerPaises('Europe')">Mostrar paises europa</button>
+                  <button type="button" class="btn btn-primary w-50" (click)="traerPaises('Africa')">Mostrar paises africanos</button>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]='formGroup.invalid'>
+                      Aceptar
+                    </button>
+                  </div>
+                </div>
+          </form>
+        </div>
+</div>
