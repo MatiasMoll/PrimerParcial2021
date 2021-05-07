@@ -19,5 +19,6 @@ export class HomeComponent implements OnInit {
 
   seleccionarRepartidor(repartidor){
     this.repartidorSeleccionado = repartidor;
+  
   }
 }

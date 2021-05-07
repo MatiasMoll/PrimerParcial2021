@@ -38,6 +38,8 @@ export class AltaRepartidosComponent implements OnInit {
     let repartidor = {
       'name':this.formGroup.get('nombre').value,
       'dni':this.formGroup.get('dni').value,
+      'edad':this.formGroup.get('edad').value,
+      'capacidad':this.formGroup.get('capacidad').value,
       'pais':this.paisSeleccionado
     };
     console.log(repartidor);
